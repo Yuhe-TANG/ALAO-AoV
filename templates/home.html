@@ -1,0 +1,34 @@
+<!--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL - --->
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fr">
+    {% trans "Action ou vérité" as the_title %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ the_title }}</title>
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'bootstrap.css' %}" />
+    <script type:"text/javascript" src="jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div id = "introLeft">
+    <h1>{{ the_title }}</h1>
+    <p>{% trans 'Bonjour, bienvenue dans le site Action ou vérité ! ' %}</p>
+    <p>{% trans "C'est un jeu simple pour vous mobiliser la production orale." %}</p>
+    <p> - {% trans 'Indiquez le nombre de participants' %} 👉</p>
+    <p> - {% trans "Ensuite chacun va choisir les mots qu'il/elle connaît" %}</p>
+    <p> - {% trans 'Quand vous avez des phrases affichées, vous pouvez commencer le jeu Action ou vérité comme vous voulez : un par un ou aléatoirement...' %}</p>
+    <p>{% trans 'Essayez de parler seulement français !' %}</p>
+</div>
+
+<div id = "introRight">
+    <h1>{% trans 'Nombre de participants' %} : </h1>
+    <div id = "nbPers">
+        <textarea class="form-control" name="inputNb" id="inputNb" cols="20" rows="2" placeholder="Ecrivez ici le nombre de personnes ..."></textarea>
+    </div>
+    <button id = "commencer" type = "button" class = "btn btn-outline-success">{% trans 'Commencer' %}</button>
+</div>
+
+</body>
+</html>

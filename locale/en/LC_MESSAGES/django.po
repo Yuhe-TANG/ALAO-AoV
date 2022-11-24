@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-24 10:59+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\templates\game.html:22
+msgid "Joueur"
+msgstr "Player"
+
+#: .\templates\game.html:25
+msgid "la prochaine phrase"
+msgstr "Next sentence"
+
+#: .\templates\game.html:30
+msgid "Mots choisis"
+msgstr "Words chosen"
+
+#: .\templates\game.html:34
+msgid "Fini"
+msgstr "Done"
+
+#: .\templates\home.html:6
+msgid "Action ou vérité"
+msgstr "Truth or Dare"
+
+#: .\templates\home.html:17
+msgid "Bonjour, bienvenue dans le site Action ou vérité ! "
+msgstr "Hello, welcome to the website Truth or Dare ! "
+
+#: .\templates\home.html:18
+msgid "C'est un jeu simple pour vous mobiliser la production orale."
+msgstr "This is a simple game for practicing the oral production."
+
+#: .\templates\home.html:19
+msgid "Indiquez le nombre de participants"
+msgstr "Please indicate the number of participants"
+
+#: .\templates\home.html:20
+msgid "Ensuite chacun va choisir les mots qu'il/elle connaît"
+msgstr "Then everyone will choose the words he/she knows"
+
+#: .\templates\home.html:21
+msgid ""
+"Quand vous avez des phrases affichées, vous pouvez commencer le jeu Action "
+"ou vérité comme vous voulez : un par un ou aléatoirement..."
+msgstr "When you have sentences displayed, you can start the truth or dare game as you like: one by one or randomly..."
+
+#: .\templates\home.html:22
+msgid "Essayez de parler seulement français !"
+msgstr "Try to speak only english !"
+
+#: .\templates\home.html:26
+msgid "Nombre de participants"
+msgstr "Number of participants"
+
+#: .\templates\home.html:30
+msgid "Commencer"
+msgstr "Start"

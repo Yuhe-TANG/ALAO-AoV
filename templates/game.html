@@ -1,0 +1,38 @@
+<!--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL - --->
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ the_title }}</title>
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'bootstrap.css' %}" />
+    <script type:"text/javascript" src="jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div id = "gameLeft">
+    <div id = "gameContent">
+    <p>testtesttest</p>
+    <p>testtesttest</p>
+    <p>testtesttest</p>
+    </div>
+
+    <div class = "bas" id = "playerX">
+        {% trans 'Joueur' %} 1
+    </div>
+    <div class = "bas" id = "divEnsuite" style = "display: none">
+        <button id = "ensuite">{% trans 'la prochaine phrase' %}</button>
+    </div>
+</div>
+
+<div id = "gameRight">
+    <h1>{% trans 'Mots choisis' %}</h1>
+    <div id = "wordlist">
+
+    </div>
+    <button id = "fini" type = "button" class = "btn btn-outline-success">{% trans 'Fini' %}</button>
+</div>
+
+</body>
+</html>
