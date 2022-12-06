@@ -2,33 +2,60 @@
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
-<html lang="fr">
-    {% trans "Action ou vérité" as the_title %}
+<html>
+{% trans "Action ou vérité" as the_title %}
+
 <head>
     <meta charset="UTF-8">
     <title>{{ the_title }}</title>
     <link rel="stylesheet" type="text/css" media="all" href="{% static 'bootstrap.css' %}" />
-    <script type:"text/javascript" src="jquery-3.6.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
+
 <body>
 
-<div id = "introLeft">
-    <h1>{{ the_title }}</h1>
-    <p>{% trans 'Bonjour, bienvenue dans le site Action ou vérité ! ' %}</p>
-    <p>{% trans "C'est un jeu simple pour vous mobiliser la production orale." %}</p>
-    <p> - {% trans 'Indiquez le nombre de participants' %} 👉</p>
-    <p> - {% trans "Ensuite chacun va choisir les mots qu'il/elle connaît" %}</p>
-    <p> - {% trans 'Quand vous avez des phrases affichées, vous pouvez commencer le jeu Action ou vérité comme vous voulez : un par un ou aléatoirement...' %}</p>
-    <p>{% trans 'Essayez de parler seulement français !' %}</p>
-</div>
-
-<div id = "introRight">
-    <h1>{% trans 'Nombre de participants' %} : </h1>
-    <div id = "nbPers">
-        <textarea class="form-control" name="inputNb" id="inputNb" cols="20" rows="2" placeholder="Ecrivez ici le nombre de personnes ..."></textarea>
+    <div id="introLeft">
+        <h1>{{ the_title }}</h1>
+        <p>{% trans 'Bonjour, bienvenue dans le site Action ou vérité ! ' %}</p>
+        <p>{% trans "C'est un jeu simple pour vous mobiliser la production orale." %}</p>
+        <p> - {% trans 'Indiquez le nombre de participants' %} 👉</p>
+        <p> - {% trans "Ensuite chacun va choisir les mots qu'il/elle connaît" %}</p>
+        <p> - {% trans 'Quand vous avez des phrases affichées, vous pouvez commencer le jeu Action ou vérité comme vous voulez : un par un ou aléatoirement...' %}</p>
+        <p>{% trans 'Essayez de parler seulement français !' %}</p>
     </div>
-    <button id = "commencer" type = "button" class = "btn btn-outline-success">{% trans 'Commencer' %}</button>
-</div>
+
+    <div id="introRight">
+        <h1>{% trans 'Nombre de participants' %} : </h1>
+        <div id="nbPers">
+            <textarea class="form-control" name="inputNb" id="inputNb" cols="20" rows="2"
+                placeholder="Ecrivez ici le nombre de personnes ..."></textarea>
+        </div>
+
+        <form action="/i18n/setlang/"  method="post" id='change_language_form'>
+            {% csrf_token %}
+            {% get_available_languages as LANGUAGES %}
+            <select class="change_languages" name="language" id="language" >
+                {% for lang in LANGUAGES %}
+                <option value="{{ lang.0}}"  {% if lang.0 == LANGUAGE_CODE %} selected {% endif %} >
+                    {{ lang.1 }} 
+                </option>
+                {% endfor%}
+            </select>
+            <input type="submit" id="l_input" value="Switch" style="font-size:12;height:40px">
+            <!--- <input type="submit" id="l_input" value="Switch" style="font-size:12;height:40px"> --->
+        </form>
+
+
+
+
+        <button id="commencer" type="button" class="btn btn-outline-success">{% trans 'Commencer' %}</button>
+    </div>
 
 </body>
+
 </html>
+<!--- <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script> --->
+{% block javascript %}
+<script src="{% static 'scripts/home.js' %}"></script>
+{% endblock %}
+

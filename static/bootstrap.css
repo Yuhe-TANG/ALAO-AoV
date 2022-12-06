@@ -77,8 +77,15 @@ h1 {
 #nbPers {
   margin: 2em;
 }
+
 #commencer {
-  margin: 2em;
+  border: solid;
+  padding-top: 3em;
+  margin: 3em;
+}
+
+div {
+  border: solid;
 }
 
 /*--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL ---*/
