@@ -125,8 +125,8 @@ USE_TZ = True
 DEFAULT_CHARSET = 'utf-8'
 FILE_CHARSET = 'utf-8'
 
-LOCALE_PATH = (
-    os.path.join(BASE_DIR, 'locale')
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
 )
 
 # Static files (CSS, JavaScript, Images)

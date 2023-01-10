@@ -28,24 +28,31 @@
         <h1>{% trans 'Nombre de participants' %} : </h1>
         <div id="nbPers">
             <textarea class="form-control" name="inputNb" id="inputNb" cols="20" rows="2"
-                placeholder="Ecrivez ici le nombre de personnes ..."></textarea>
+                placeholder={% trans " Ecrivez ici le nombre de personnes ... " %}></textarea>
         </div>
 
-        <form action="/i18n/setlang/"  method="post" id='change_language_form'>
-            {% csrf_token %}
-            {% get_available_languages as LANGUAGES %}
-            <select class="change_languages" name="language" id="language" >
-                {% for lang in LANGUAGES %}
-                <option value="{{ lang.0}}"  {% if lang.0 == LANGUAGE_CODE %} selected {% endif %} >
-                    {{ lang.1 }} 
-                </option>
-                {% endfor%}
-            </select>
-            <input type="submit" id="l_input" value="Switch" style="font-size:12;height:40px">
-            <!--- <input type="submit" id="l_input" value="Switch" style="font-size:12;height:40px"> --->
-        </form>
 
-
+        <div id='div_change_language_form' style="font-size:12;height:30px">
+            <div style="flex: 1; align-content:center;">
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <select name="language">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+                                    selected{% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+            
+                    <input type="submit"
+                           value={% translate "Switch" %} style="font-size:12;height:20px">
+                </form>
+            </div>
+        </div>
 
 
         <button id="commencer" type="button" class="btn btn-outline-success">{% trans 'Commencer' %}</button>
@@ -58,4 +65,3 @@
 {% block javascript %}
 <script src="{% static 'scripts/home.js' %}"></script>
 {% endblock %}
-

@@ -9,10 +9,4 @@ def home(request):
 def game(request):
     return render(request, 'game.html')
 
-def lan(request):
-    return render(request,"index.html")
-
-def index(request):
-    context = {'msg': _("good info")}
-    return render(request, 'index.html', context)
 

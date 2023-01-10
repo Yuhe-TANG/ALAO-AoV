@@ -51,6 +51,7 @@
 
 #gameContent {
   height: 90%;
+  margin: 3em;
 }
 .bas {
   position:relative;
@@ -76,16 +77,6 @@ h1 {
 }
 #nbPers {
   margin: 2em;
-}
-
-#commencer {
-  border: solid;
-  padding-top: 3em;
-  margin: 3em;
-}
-
-div {
-  border: solid;
 }
 
 /*--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL ---*/
@@ -466,9 +457,9 @@ select:disabled {
 button,
 [type=button],
 [type=reset],
-[type=submit] {
+[type=submit] /* {
   -webkit-appearance: button;
-}
+} */
 button:not(:disabled),
 [type=button]:not(:disabled),
 [type=reset]:not(:disabled),
@@ -523,10 +514,10 @@ legend + * {
   height: auto;
 }
 
-[type=search] {
+[type=search] /* {
   outline-offset: -2px;
   -webkit-appearance: textfield;
-}
+} */
 
 /* rtl:raw:
 [type="tel"],
@@ -536,22 +527,23 @@ legend + * {
   direction: ltr;
 }
 */
+/* 
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
-
+ */
 ::-webkit-color-swatch-wrapper {
   padding: 0;
 }
 
 ::-webkit-file-upload-button {
   font: inherit;
-  -webkit-appearance: button;
+  /* -webkit-appearance: button; */
 }
 
 ::file-selector-button {
   font: inherit;
-  -webkit-appearance: button;
+  /* -webkit-appearance: button; */
 }
 
 output {
@@ -2360,7 +2352,7 @@ textarea.form-control-lg {
   -moz-appearance: none;
   appearance: none;
   -webkit-print-color-adjust: exact;
-  color-adjust: exact;
+  /* color-adjust: exact; */
   print-color-adjust: exact;
 }
 .form-check-input[type=checkbox] {

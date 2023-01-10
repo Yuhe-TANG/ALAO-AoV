@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-04 19:43+0100\n"
+"POT-Creation-Date: 2023-01-10 14:32+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,28 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-#: .\myApp\views.py:13
-msgid "good info"
-msgstr "good info trans"
 
-#: .\templates\game.html:22
+#: .\AOVprojet\settings.py:114
+msgid "Français"
+msgstr "French"
+
+#: .\AOVprojet\settings.py:115
+msgid "English"
+msgstr "English"
+
+#: .\templates\game.html:24
 msgid "Joueur"
 msgstr "Player"
 
-#: .\templates\game.html:25
+#: .\templates\game.html:27
 msgid "la prochaine phrase"
 msgstr "Next sentence"
 
-#: .\templates\game.html:30
+#: .\templates\game.html:32
 msgid "Mots choisis"
 msgstr "Words choisen"
 
-#: .\templates\game.html:34
+#: .\templates\game.html:41
 msgid "Fini"
 msgstr "Done"
 
@@ -61,16 +66,27 @@ msgstr "Then everyone will choose the words he/she knows"
 msgid ""
 "Quand vous avez des phrases affichées, vous pouvez commencer le jeu Action "
 "ou vérité comme vous voulez : un par un ou aléatoirement..."
-msgstr "When you have sentences displayed, you can start the truth or dare game as you like: one by one or randomly..."
+msgstr ""
+"When you have sentences displayed, you can start the truth or dare game "
+"as you like: one by one or randomly..."
 
 #: .\templates\home.html:24
 msgid "Essayez de parler seulement français !"
-msgstr "Try to speak only French!"
+msgstr "Try to speak only French ! "
 
 #: .\templates\home.html:28
 msgid "Nombre de participants"
 msgstr "Number of participants"
 
-#: .\templates\home.html:51
+#: .\templates\home.html:31
+msgid " Ecrivez ici le nombre de personnes ... "
+msgstr " Write here the number of participants ..."
+
+#: .\templates\home.html:52
+msgid "Switch"
+msgstr "Change"
+
+#: .\templates\home.html:58
 msgid "Commencer"
 msgstr "Start"
+

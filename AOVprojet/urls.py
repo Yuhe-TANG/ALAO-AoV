@@ -23,6 +23,9 @@ from AOVprojet import settings
 
 
 urlpatterns = [
+    path("admin/", admin.site.urls),
+    path('', views.home),
+    path('game/', views.game),
     path('i18n/', include('django.conf.urls.i18n')),
     # url(r'^i18n/',include('django.conf.urls.i18n')),
 ]
