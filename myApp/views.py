@@ -8,7 +8,8 @@ import spacy
 import pandas as pd
 
 # Create your views here.
-
+mode_lang = "fr"
+players_num = 0
 def home(request):
     return render(request, 'home.html')
 
@@ -46,7 +47,7 @@ def nb_lang(request):
     li_to_front_vocab = vocab_list_to_front_end(key_words)
 
     l_words = {
-        'key' : li_to_front_vocab
+        'key' : li_to_front_vocab,
     }
 
     return JsonResponse(l_words)
@@ -64,7 +65,7 @@ def send_words(request):
 
     l_words = {
         'key' : li_to_front_vocab,
-        'nb_players' : players_num
+        'players_num': players_num,
     }
 
     return JsonResponse(l_words)

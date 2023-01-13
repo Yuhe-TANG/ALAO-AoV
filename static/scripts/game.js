@@ -1,5 +1,3 @@
-var nb_players = 0;
-
 async function get_words() {
 
     // PARAMÈTRES DE LA REQUÊTE
@@ -15,7 +13,7 @@ async function get_words() {
     const data = await response.json();
     //console.table(data['key']);
     List = data['key']
-    nb_players = data['nb_players']
+    nb_players = data['players_num']
     //console.log(List)
     var word_list = ""
     for (i in List) {
@@ -29,13 +27,17 @@ async function get_words() {
     var outText = document.getElementById('gameContent');
     outText.innerHTML = ""; // vider la div si elle contenait déjà qqc
     outText.innerHTML = word_list
-    console.log(nb_players)
+    var try1 = document.getElementById('try');
+    try1.innerHTML = nb_players;
 }
 
 get_words();
 
 var v_li = []
 var vocab_list = {}
+var nb_players = document.getElementById('try').innerHTML
+nb_players = parseInt(nb_players)
+var player = 1
 
 function choose_words(e) {
     v_li.push(e.target.value)
@@ -43,10 +45,21 @@ function choose_words(e) {
 }
 
 function finir(e){
-    console.log(nb_players)
-    vocab_list['player1'] = v_li
-}
-
+    console.log("finir")
+        vocab_list[player.toString()] = v_li;
+        v_li = []
+        player++;
+        var list_words = document.getElementById('gameContent');
+        console.log(list_words)
+        var i = "";
+        console.log(list_words.children.length)
+        childrens = list_words.children
+        for (i in childrens){
+            console.log(childrens[i].className = "hahaha");
+        }
+    }
+    
+/*
 $("#fini").on({
     "click": function () {
         var words_choisi = [];
@@ -67,3 +80,4 @@ $("#fini").on({
         $("wordlist").append(words_choisi);
     }
 });
+*/
