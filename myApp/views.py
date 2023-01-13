@@ -20,16 +20,28 @@ def game(request):
 
     li_to_front_vocab = vocab_list_to_front_end(key_words)
 
-    for mot in li_to_front_vocab : 
-        mot = "<m>" + mot + "</m>"
+    # reponse = json.dumps(reponse)
+    return render(request, 'game.html', { 
+    'List': json.dumps(li_to_front_vocab), 
+    })
 
-    reponse = {
-       "reponse" : li_to_front_vocab
+def send_words(request):
+    size = 10
+    mode = "fr"
+    if (mode == "en"):
+        df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
+    else:
+        df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
+    
+    key_words = get_words(size, df)
+
+    li_to_front_vocab = vocab_list_to_front_end(key_words)
+
+    l_words = {
+        'key' : li_to_front_vocab
     }
 
-    # reponse = json.dumps(reponse)
-    return render(request, 'game.html', reponse)
-
+    return JsonResponse(l_words)
 
 import requests
 from lxml import etree
@@ -193,6 +205,4 @@ def main(mode, question_size):
     make_final_result_to_front_end(vocab_list, key_words, selected_sentences)
     #send to front end
 
-def send_words(request) : 
-    pass
 

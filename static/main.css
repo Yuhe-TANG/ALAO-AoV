@@ -71,4 +71,13 @@ h1 {
     margin: 4em;
 }
 
+#gameContent button:hover {
+    background-color:rgba(0,160,196,0.5);
+    cursor: pointer;
+}
+
+.choisi {
+    background-color:rgb(233,87,112);
+}
+
 /*--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL ---*/
