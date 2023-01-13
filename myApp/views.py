@@ -2,6 +2,10 @@ from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 from django.http import JsonResponse
 import json
+import requests
+from lxml import etree
+import spacy
+import pandas as pd
 
 # Create your views here.
 
@@ -10,8 +14,7 @@ def home(request):
 
 def game(request):
     size = 10
-    mode = "fr"
-    if (mode == "en"):
+    if (mode_lang == "en"):
         df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
     else:
         df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
@@ -25,10 +28,32 @@ def game(request):
     'List': json.dumps(li_to_front_vocab), 
     })
 
+def nb_lang(request):
+    nb_lang = json.loads(request.body)
+    global players_num
+    global mode_lang
+    players_num = nb_lang['nb_lan'][0]
+    mode_lang = nb_lang['nb_lan'][1]
+    
+    size = 10
+    if (mode_lang == "en"):
+        df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
+    else:
+        df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
+    
+    key_words = get_words(size, df)
+
+    li_to_front_vocab = vocab_list_to_front_end(key_words)
+
+    l_words = {
+        'key' : li_to_front_vocab
+    }
+
+    return JsonResponse(l_words)
+
 def send_words(request):
     size = 10
-    mode = "fr"
-    if (mode == "en"):
+    if (mode_lang == "en"):
         df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
     else:
         df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
@@ -43,11 +68,6 @@ def send_words(request):
     }
 
     return JsonResponse(l_words)
-
-import requests
-from lxml import etree
-import spacy
-import pandas as pd
 
 
 url_fr = "https://loisirs.toutcomment.com/article/les-meilleures-questions-pour-jouer-a-action-ou-verite-13592.html"
@@ -149,12 +169,6 @@ def vocab_list_to_front_end(key_words):
 vocab_list = {'player1':['fantasy', 'time', 'cried', 'crush', 'week'], 'player2': ['time', 'gender', 'have', 'crush', 'week']} # from front end
 
 
-def nb_pers(request):
-    nb_pers = json.loads(request.body)
-    global players_num
-    players_num = nb_pers['nb_pers']
-
-
 def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
     known_words = {}
     for v in vocab_list:
@@ -195,9 +209,9 @@ def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
         for question in final_result_to_front[key]:
             print(question)
         
-def main(mode, question_size):
+def main(mode_lang, question_size):
     size = question_size
-    if (mode == "en"):
+    if (mode_lang == "en"):
         df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
     else:
         df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
