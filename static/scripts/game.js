@@ -1,3 +1,5 @@
+var nb_players = 0;
+
 async function get_words() {
 
     // PARAMÈTRES DE LA REQUÊTE
@@ -13,12 +15,13 @@ async function get_words() {
     const data = await response.json();
     //console.table(data['key']);
     List = data['key']
+    nb_players = data['nb_players']
     //console.log(List)
     var word_list = ""
     for (i in List) {
         mot = List[i]
         if (mot != "-") {
-            mot = "<button>" + mot + "</button> ";
+            mot = "<button onclick='choose_words(event)' value = '" + mot + "'>" + mot + "</button> ";
             word_list += mot
         }
     }
@@ -26,18 +29,23 @@ async function get_words() {
     var outText = document.getElementById('gameContent');
     outText.innerHTML = ""; // vider la div si elle contenait déjà qqc
     outText.innerHTML = word_list
+    console.log(nb_players)
 }
 
 get_words();
 
-$("#gameContent button").on('click', '.stop_btn', function(e) {
-    console.log("okk")
-    if ($(this).hasClass("choisi")) {
-        $(this).removeClass("choisi");
-    } else {
-        $(this).addClass("choisi");
-    }
-});
+var v_li = []
+var vocab_list = {}
+
+function choose_words(e) {
+    v_li.push(e.target.value)
+    e.target.classList.toggle("choisi")
+}
+
+function finir(e){
+    console.log(nb_players)
+    vocab_list['player1'] = v_li
+}
 
 $("#fini").on({
     "click": function () {

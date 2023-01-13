@@ -38,7 +38,8 @@ def send_words(request):
     li_to_front_vocab = vocab_list_to_front_end(key_words)
 
     l_words = {
-        'key' : li_to_front_vocab
+        'key' : li_to_front_vocab,
+        'nb_players' : players_num
     }
 
     return JsonResponse(l_words)
@@ -147,10 +148,12 @@ def vocab_list_to_front_end(key_words):
 # vocab_list vient de front end :
 vocab_list = {'player1':['fantasy', 'time', 'cried', 'crush', 'week'], 'player2': ['time', 'gender', 'have', 'crush', 'week']} # from front end
 
+
 def nb_pers(request):
     nb_pers = json.loads(request.body)
     global players_num
     players_num = nb_pers['nb_pers']
+
 
 def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
     known_words = {}
@@ -187,7 +190,10 @@ def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
         else:
             final_result_to_front["easy"].append({selected_sentences[id_phrase]: word_category_dict})
 
-    print(final_result_to_front)
+    for key in final_result_to_front:
+        print("\nNiveau de difficulté: ", key)
+        for question in final_result_to_front[key]:
+            print(question)
         
 def main(mode, question_size):
     size = question_size

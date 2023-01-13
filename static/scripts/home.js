@@ -21,3 +21,5 @@ async function send_nb_pers() {
 
     window.location.href="game/";
 }
+
+
