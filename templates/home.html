@@ -1,4 +1,3 @@
-<!--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL - --->
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
@@ -8,7 +7,8 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ the_title }}</title>
-    <link rel="stylesheet" type="text/css" media="all" href="{% static 'bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'bootstrap.css' %}?ver=10011555" />
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'main.css' %}?ver=10011555" />
     <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
 
@@ -33,7 +33,7 @@
 
 
         <div id='div_change_language_form' style="font-size:12;height:30px">
-            <div style="flex: 1; align-content:center;">
+
                 <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
                     <input name="next" type="hidden" value="{{ redirect_to }}">
                     <select name="language">
@@ -49,13 +49,13 @@
                     </select>
             
                     <input type="submit"
-                           value={% translate "Switch" %} style="font-size:12;height:20px">
+                           value={% translate "Switch" %} style="font-size:12;height:40px">
                 </form>
-            </div>
+
         </div>
 
 
-        <button id="commencer" type="button" class="btn btn-outline-success">{% trans 'Commencer' %}</button>
+        <button id="commencer" type="button" class="btn btn-outline-success" onclick="send_nb_pers()">{% trans 'Commencer' %}</button>
     </div>
 
 </body>
@@ -63,5 +63,5 @@
 </html>
 <!--- <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script> --->
 {% block javascript %}
-<script src="{% static 'scripts/home.js' %}"></script>
+<script src="{% static 'scripts/home.js' %}?ver=13010153"></script>
 {% endblock %}

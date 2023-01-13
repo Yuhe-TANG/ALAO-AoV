@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 
@@ -7,13 +9,33 @@ def home(request):
     return render(request, 'home.html')
 
 def game(request):
-    return render(request, 'game.html')
+    size = 10
+    mode = "fr"
+    if (mode == "en"):
+        df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
+    else:
+        df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
+    
+    key_words = get_words(size, df)
+
+    li_to_front_vocab = vocab_list_to_front_end(key_words)
+
+    for mot in li_to_front_vocab : 
+        mot = "<m>" + mot + "</m>"
+
+    reponse = {
+       "reponse" : li_to_front_vocab
+    }
+
+    # reponse = json.dumps(reponse)
+    return render(request, 'game.html', reponse)
 
 
 import requests
 from lxml import etree
 import spacy
 import pandas as pd
+
 
 url_fr = "https://loisirs.toutcomment.com/article/les-meilleures-questions-pour-jouer-a-action-ou-verite-13592.html"
 url_en = "https://www.scienceofpeople.com/truth-or-dare/"
@@ -86,6 +108,8 @@ def web_scrapping():
     make_csv(en_questions, en_file_path, "en")
     make_csv(fr_questions, fr_file_path, "fr")
 
+web_scrapping()
+
 # ------------------------------------------- Algo for selecting words and giving difficulty levels to questions --------------------------------
 
 def get_sentences(size, df):
@@ -110,7 +134,11 @@ def vocab_list_to_front_end(key_words):
 
 # vocab_list vient de front end :
 vocab_list = {'player1':['fantasy', 'time', 'cried', 'crush', 'week'], 'player2': ['time', 'gender', 'have', 'crush', 'week']} # from front end
-players_num = 2 # from front end
+
+def nb_pers(request):
+    nb_pers = json.loads(request.body)
+    global players_num
+    players_num = nb_pers['nb_pers']
 
 def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
     known_words = {}
@@ -160,7 +188,11 @@ def main(mode, question_size):
 
     li_to_front_vocab = vocab_list_to_front_end(key_words)
     # send to front end
+    
     # get vocab_list from front-end
     make_final_result_to_front_end(vocab_list, key_words, selected_sentences)
     #send to front end
+
+def send_words(request) : 
+    pass
 

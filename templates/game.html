@@ -1,4 +1,3 @@
-<!--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL - --->
 {% load static %}
 {% load i18n %}
 <!DOCTYPE html>
@@ -7,17 +6,16 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ the_title }}</title>
-    <link rel="stylesheet" type="text/css" media="all" href="{% static 'bootstrap.css' %}" />
-    <script type:"text/javascript" src="jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'bootstrap.css' %}?ver=10011555" />
+    <link rel="stylesheet" type="text/css" media="all" href="{% static 'main.css' %}?ver=10011555" />
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
 
 <body>
 
     <div id="gameLeft">
         <div id="gameContent">
-            <p>mots à choisir</p>
-            <p>mots à choisir</p>
-            <p>mots à choisir</p>
+            {{ reponse }}
         </div>
 
         <div class="bas" id="playerX">
@@ -29,7 +27,8 @@
     </div>
 
     <div id="gameRight">
-        <h1>{% trans 'Mots choisis' %}</h1>
+        <h1>{% trans 'Mots choisis' %} </h1>
+        <p id="nb_pers"></p>
         <div id="wordlist">
             <p>Joueur 1</p>
             <p>mot 1</p>
@@ -44,3 +43,7 @@
 </body>
 
 </html>
+
+{% block javascript %}
+<script src="{% static 'scripts/game.js' %}?ver=13010246"></script>
+{% endblock %}

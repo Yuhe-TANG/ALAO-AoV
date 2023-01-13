@@ -20,16 +20,23 @@ from myApp import views
 from django.conf.urls.i18n import i18n_patterns
 from django.views.static import serve
 from AOVprojet import settings
+from django.views.decorators.csrf import csrf_exempt
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', views.home),
+    path('jeu/', views.game),
     path('game/', views.game),
     path('i18n/', include('django.conf.urls.i18n')),
     # url(r'^i18n/',include('django.conf.urls.i18n')),
+    path('nb_pers/', csrf_exempt(views.nb_pers)),
+    path('game/', csrf_exempt(views.send_words)),
 ]
 urlpatterns += i18n_patterns(
     path('', views.home),
+    path('jeu/', views.game),
     path('game/', views.game),
+    path('nb_pers/', csrf_exempt(views.nb_pers)),
+    path('game/', csrf_exempt(views.send_words)),
 )
