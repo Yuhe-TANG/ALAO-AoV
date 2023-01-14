@@ -17,12 +17,14 @@
         <div id="gameContent"></div>
 
         <div class="bas" id="playerX">
-            {% trans 'Joueur' %} <span id = "span_playerX">1</span>
+            {% trans 'Joueur' %}
         </div>
-        <p>{% trans 'Cliquer une fois le mot : marquer le mot comme connu' %} </p>
-        <p>{% trans 'Cliquer deux fois le mot : visiter le dictionnaire en ligne sur le mot' %} </p>
+        <div id="p_indice_dic">
+            <p>{% trans 'Cliquer une fois le mot : marquer le mot comme connu' %} </p>
+            <p>{% trans 'Cliquer deux fois le mot : visiter le dictionnaire en ligne sur le mot' %} </p>
+        </div>
         <div class="bas" id="divEnsuite" style="display: none">
-            <button id="ensuite" onclick="next_sentence(event)">{% trans 'la prochaine phrase' %}</button>
+            <button id="ensuite" type="button" class="btn btn-outline-success" onclick="next_sentence(event)">{% trans 'la prochaine phrase' %}</button>
         </div>
     </div>
 

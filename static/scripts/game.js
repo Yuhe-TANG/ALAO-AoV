@@ -1,17 +1,16 @@
-function strReplaceAll(search = ' ', replacement = '_', string){
-    if(!string) return;
-    return string.replace(new RegExp(search,'g'), replacement);
-}
+//--- obtenir la langue du site
 var lang = document.getElementById('playerX');
-if (lang.innerText == "Player 1") {
+if (lang.innerText == "Player") {
     mode_lang = "en";
 } else {
     mode_lang = "fr";
 }
 
+
+//--- obtenir les mots depuis views.py : views.send_words
 async function get_words() {
 
-    // PARAMÈTRES DE LA REQUÊTE
+    //--- PARAMÈTRES DE LA REQUÊTE
     const requete = {
         method: 'POST',
         headers: {
@@ -19,9 +18,11 @@ async function get_words() {
         }
     };
 
-    // ENVOI ET RÉCUPÉRATION DE LA RÉPONSE
+    //--- ENVOI ET RÉCUPÉRATION DE LA RÉPONSE
     const response = await fetch('/game/get_words', requete)
     const data = await response.json();
+
+    //--- traitement de la réponse
     //console.table(data['key']);
     List = data['key']
     nb_players = data['players_num']
@@ -30,36 +31,44 @@ async function get_words() {
     for (i in List) {
         mot = List[i]
         if (mot != "-") {
+            //--- créer le lien vers le dictionnaire en ligne
             if (mode_lang == "fr") {
                 href = "https://www.larousse.fr/dictionnaires/francais/" + mot;
             } else {
                 href = "https://dictionary.cambridge.org/dictionary/english/" + mot;
             }
+            //--- créer le code html pour chaque mot
             mot = "<button onclick='choose_words(event)' value = '" + mot + "' ondblclick = 'visite_dic_en_ligne(event)' href = '"+ href +"' >" + mot + "</button> ";
             word_list += mot
         }
     }
+    //--- afficher le code html vers game.html
     //console.log(word_list) ; 
     var outText = document.getElementById('gameContent');
     outText.innerHTML = ""; // vider la div si elle contenait déjà qqc
     outText.innerHTML = word_list
-    var try1 = document.getElementById('try');
-    try1.innerHTML = nb_players;
+    var try1 = document.getElementById('try'); // sauvegarder le nombre de personnes
+    try1.innerHTML = nb_players;               // pour le récupérer dans les fonctions suivantes
 }
-
+// -------------------------------------------------------------------------------------------------------
 get_words();
 
 var v_li = []
 var vocab_list = {}
-var nb_players = document.getElementById('try').innerHTML
-var p = document.getElementById('span_playerX').innerHTML
-var outText = document.getElementById('gameContent');
+var nb_players = document.getElementById('try').innerHTML // récupérer le nb de pers
 nb_players = parseInt(nb_players)
+var outText = document.getElementById('gameContent');
 var player = 1
 var dict_envoyer = {}
+
+//--- cliquer une fois le mot : ajouter la class "choisi"
 function choose_words(e) {
     v_li.push(e.target.value)
     e.target.classList.toggle("choisi")
+}
+//--- cliquer deux fois le mot : visiter le site dictionnaire
+function visite_dic_en_ligne(e) {
+    window.open(e.target.getAttribute("href"));
 }
 
 dict = {};
@@ -68,27 +77,19 @@ word_color_span = {};
 
 sentences = [];
 
-function visite_dic_en_ligne(e) {
-    window.open(e.target.getAttribute("href"));
-}
+// -------------------------------------------------------------------------------------------------------
 
 async function finir(e) {
-    //console.log("finir")
-
 
     var words_choisi = [];
     var list_words = document.getElementById('gameContent');
 
-
     vocab_list[player.toString()] = v_li;
     //console.log(v_li);
     v_li = [];
-    var lang = document.getElementById('playerX');
-    if (lang.innerText == "Player 1") {
-        mode_lang = "en";
+    if (mode_lang = "en") {
         var list_w_choisi = "<div> <p>Player "+ player.toString() + "</p>";
     } else {
-        mode_lang = "fr";
         var list_w_choisi = "<div> <p>Joueur "+ player.toString() + "</p>";
     }
     
@@ -114,6 +115,8 @@ async function finir(e) {
     indice_dict_envoyer = "player" + player.toString();
     dict_envoyer[indice_dict_envoyer] = words_choisi;
     //console.log(dict_envoyer);
+
+    // --- Quand tout le monde a choisi les mots : envoyer les mots choisi vers back-end ---
     if (player == nb_players) {
         const requete = {
             method: 'POST',
@@ -122,7 +125,7 @@ async function finir(e) {
             },
             body: JSON.stringify(dict_envoyer)
         };
-
+        // récupérer les phrases depuis back-end
         const response = await fetch('/game/send_dict_envoyer', requete)
         const data = await response.json();
         phrases = data['phrase']
@@ -130,13 +133,15 @@ async function finir(e) {
         console.log(data['words'])
         player = 0 ;
 
-        
-        outText.innerHTML = ""; // vider la div si elle contenait déjà qqc
+        outText.innerHTML = "";
         console.log(dict["difficult"]);
         console.log(dict["middle"]);
         console.log(dict["easy"]);
 
         dic = dict["easy"];
+
+        // --- ajouter les couleurs sur les phrases : 
+
         // "<span style = \"color: "+ color + ";\">" + key + "</span>"
         for (dic in dict){
             dic = dict[dic]
@@ -155,7 +160,6 @@ async function finir(e) {
                 }
             }
         }
-        
         outText.innerHTML = sentences[0];
         
 
@@ -164,11 +168,10 @@ async function finir(e) {
 
         var bt_fini = document.getElementById('fini');
         bt_fini.style.display="none";
+        document.getElementById('p_indice_dic').style.display="none";
 
     }
-    p = "";
     player++;
-    p = player;
 }
 
 var sents_count = 1;
@@ -192,14 +195,15 @@ function next_sentence() {
     } else {
         outText.innerHTML = "Le jeu est terminé ! Merci !";
     }
-
-    p = "";
     player++;
-    p = player;
     i++;
 }
 
-
+// function à sauvegarder
+function strReplaceAll(search = ' ', replacement = '_', string){
+    if(!string) return;
+    return string.replace(new RegExp(search,'g'), replacement);
+}
 
 /*
 $("#fini").on({
