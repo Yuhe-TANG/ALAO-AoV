@@ -8,8 +8,12 @@ import spacy
 import pandas as pd
 
 # Create your views here.
+
+# initialiser les variables
 mode_lang = "fr"
 players_num = 0
+
+# def de base
 def home(request):
     return render(request, 'home.html')
 
@@ -29,6 +33,7 @@ def game(request):
     'List': json.dumps(li_to_front_vocab), 
     })
 
+# obtenir le nb de pers et la version de langue depuis home.html/home.js
 def nb_lang(request):
     nb_lang = json.loads(request.body)
     global players_num
@@ -52,6 +57,7 @@ def nb_lang(request):
 
     return JsonResponse(l_words)
 
+# envoyer la liste des mots vers game.js/game.html
 def send_words(request):
     size = 10
     if (mode_lang == "en"):
@@ -70,7 +76,44 @@ def send_words(request):
 
     return JsonResponse(l_words)
 
+def send_phrases(request) :
+    data = json.loads(request.body)
+    global vocab_list
+    vocab_list = data
+    
+    size = 10
+    if (mode_lang == "en"):
+        df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
+    else:
+        df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
+    selected_sentences = get_sentences(size, df)
+    key_words = get_words(size, df)
+    words = make_final_result_to_front_end(vocab_list, key_words, selected_sentences)
+    
+    colis = {
+        'phrase' : selected_sentences,
+        'words': words,
+    }
+    return JsonResponse(colis)
 
+
+def main(mode_lang, question_size):
+    size = question_size
+    if (mode_lang == "en"):
+        df = pd.read_csv("en_data.csv", encoding="utf-8", delimiter="\t")
+    else:
+        df = pd.read_csv("fr_data.csv", encoding="utf-8", delimiter="\t")
+    selected_sentences = get_sentences(size, df)
+    key_words = get_words(size, df)
+
+    li_to_front_vocab = vocab_list_to_front_end(key_words)
+    # send to front end
+    
+    # get vocab_list from front-end
+    make_final_result_to_front_end(vocab_list, key_words, selected_sentences)
+    #send to front end
+
+# -------------------------------------------  codes partie web-scraping ------------------------------------------- 
 url_fr = "https://loisirs.toutcomment.com/article/les-meilleures-questions-pour-jouer-a-action-ou-verite-13592.html"
 url_en = "https://www.scienceofpeople.com/truth-or-dare/"
 
@@ -167,7 +210,7 @@ def vocab_list_to_front_end(key_words):
     return li_to_front_vocabs
 
 # vocab_list vient de front end :
-vocab_list = {'player1':['fantasy', 'time', 'cried', 'crush', 'week'], 'player2': ['time', 'gender', 'have', 'crush', 'week']} # from front end
+#vocab_list = {'player1':['fantasy', 'time', 'cried', 'crush', 'week'], 'player2': ['time', 'gender', 'have', 'crush', 'week']} # from front end
 
 
 def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
@@ -187,29 +230,33 @@ def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
 
         word_category_dict = {}
         
-        for word in key_words[id_phrase]:
-            if word in known_words: # If the user know the word,=
-                if (known_words[word] == players_num):
-                    category = "green"
-                    level -= 1
+        for words in key_words[id_phrase].split(" ") :
+            word_list = words.split("/")
+            for word in word_list : 
+                print(word)
+                if word in known_words: # If the user know the word,=
+                    if (known_words[word] == players_num):
+                        category = "green"
+                        level -= 1
+                    else:
+                        category = "orange"
                 else:
-                    category = "orange"
+                    category = "red"
+                    level += 1
+                word_category_dict[word] = category
+            if (level == word_size): # Very difficult
+                final_result_to_front["difficult"].append({selected_sentences[id_phrase]: word_category_dict})
+            elif (level >= 0 and level < word_size): # middle difficulty
+                final_result_to_front["middle"].append({selected_sentences[id_phrase]: word_category_dict})
             else:
-                category = "red"
-                level += 1
-            word_category_dict[word] = category
-        if (level == word_size): # Very difficult
-            final_result_to_front["difficult"].append({selected_sentences[id_phrase]: word_category_dict})
-        elif (level >= 0 and level < word_size): # middle difficulty
-            final_result_to_front["middle"].append({selected_sentences[id_phrase]: word_category_dict})
-        else:
-            final_result_to_front["easy"].append({selected_sentences[id_phrase]: word_category_dict})
+                final_result_to_front["easy"].append({selected_sentences[id_phrase]: word_category_dict})
 
     for key in final_result_to_front:
-        print("\nNiveau de difficulté: ", key)
+        #print("\nNiveau de difficulté: ", key)
         for question in final_result_to_front[key]:
             print(question)
-        
+    return final_result_to_front
+
 def main(mode_lang, question_size):
     size = question_size
     if (mode_lang == "en"):
@@ -225,5 +272,6 @@ def main(mode_lang, question_size):
     # get vocab_list from front-end
     make_final_result_to_front_end(vocab_list, key_words, selected_sentences)
     #send to front end
+
 
 

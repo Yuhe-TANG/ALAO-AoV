@@ -19,7 +19,7 @@
 }
 
 #gameLeft {
-    width: 61.8%;
+    width: 38.2%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -27,7 +27,7 @@
 }
 
 #gameRight {
-    width: 38.2%;
+    width: 61.8%;
     height: 100%;
     display: flex;
     justify-content: center;
@@ -38,6 +38,11 @@
 #gameContent {
     height: 90%;
     margin: 3em;
+}
+
+#wordlist div  {
+    width: 61.8%;
+    white-space:normal;
 }
 
 .bas {
@@ -79,5 +84,17 @@ h1 {
 .choisi {
     background-color:rgb(233,87,112);
 }
+
+#wordlist a {
+    margin-bottom: 2em;
+    border: dotted;
+}
+
+#fini {
+    margin: 2em;
+}
+
+
+
 
 /*--- Qinyue LIU - Yuhe TANG - M2 SDL parcours IDL ---*/

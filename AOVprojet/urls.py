@@ -32,6 +32,7 @@ urlpatterns = [
     # url(r'^i18n/',include('django.conf.urls.i18n')),
     path('game/send_nb_lang', csrf_exempt(views.nb_lang)),
     path('game/get_words', views.send_words),
+    path('game/send_dict_envoyer', csrf_exempt(views.send_phrases)),
 ]
 urlpatterns += i18n_patterns(
     path('', views.home),
@@ -39,4 +40,5 @@ urlpatterns += i18n_patterns(
     path('game/', views.game),
     path('game/send_nb_lang', csrf_exempt(views.nb_lang)),
     path('game/get_words', views.send_words),
+    path('game/send_dict_envoyer', csrf_exempt(views.send_phrases)),
 )

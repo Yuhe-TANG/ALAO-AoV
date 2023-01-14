@@ -1,3 +1,8 @@
+function strReplaceAll(search = ' ', replacement = '_', string){
+    if(!string) return;
+    return string.replace(new RegExp(search,'g'), replacement);
+}
+
 async function get_words() {
 
     // PARAMÈTRES DE LA REQUÊTE
@@ -36,29 +41,144 @@ get_words();
 var v_li = []
 var vocab_list = {}
 var nb_players = document.getElementById('try').innerHTML
+var p = document.getElementById('span_playerX').innerHTML
+var outText = document.getElementById('gameContent');
 nb_players = parseInt(nb_players)
 var player = 1
-
+var dict_envoyer = {}
 function choose_words(e) {
     v_li.push(e.target.value)
     e.target.classList.toggle("choisi")
 }
 
-function finir(e){
-    console.log("finir")
-        vocab_list[player.toString()] = v_li;
-        v_li = []
-        player++;
-        var list_words = document.getElementById('gameContent');
-        console.log(list_words)
-        var i = "";
-        console.log(list_words.children.length)
-        childrens = list_words.children
-        for (i in childrens){
-            console.log(childrens[i].className = "hahaha");
-        }
+dict = {};
+word_color = []
+word_color_span = {}
+
+async function finir(e) {
+    //console.log("finir")
+
+
+    var words_choisi = [];
+    var list_words = document.getElementById('gameContent');
+
+
+    vocab_list[player.toString()] = v_li;
+    //console.log(v_li);
+    v_li = [];
+    var lang = document.getElementById('playerX');
+    if (lang.innerText == "Player 1") {
+        mode_lang = "en";
+        var list_w_choisi = "<div> <p>Player "+ player.toString() + "</p>";
+    } else {
+        mode_lang = "fr";
+        var list_w_choisi = "<div> <p>Joueur "+ player.toString() + "</p>";
     }
     
+    //console.log(list_words);
+    var i = "";
+    //console.log(list_words.children.length);
+    childrens = list_words.children;
+    for (i in childrens) {
+        if (childrens[i].className == "choisi") {
+            words_choisi.push(childrens[i].innerHTML);
+            childrens[i].className = "";
+        }
+    }
+
+    for (i in words_choisi) {
+        //console.log(words_choisi[i]) ;
+        list_w_choisi += "<a>" + words_choisi[i] + "</a>" ;
+    }
+    
+    var html = document.getElementById('wordlist') ;
+    list_w_choisi += "</div>";
+    html.innerHTML += list_w_choisi ;
+    indice_dict_envoyer = "player" + player.toString();
+    dict_envoyer[indice_dict_envoyer] = words_choisi;
+    //console.log(dict_envoyer);
+    if (player == nb_players) {
+        const requete = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dict_envoyer)
+        };
+
+        const response = await fetch('/game/send_dict_envoyer', requete)
+        const data = await response.json();
+        phrases = data['phrase']
+        dict = data['words']
+        player = 0 ;
+
+        
+        outText.innerHTML = ""; // vider la div si elle contenait déjà qqc
+        console.log(dict["difficult"]);
+        console.log(dict["middle"]);
+        console.log(dict["easy"]);
+
+        dic = dict["middle"]
+        // "<span style = \"color: "+ color + ";\">" + key + "</span>"
+        for (i in dict["middle"]) {
+            for (key in dict["middle"][0][phrases[i]]) {
+                color = dict["middle"][0][phrases[i]][key]
+                // word_color += key
+                a = "<span style = \"color: "+ color + ";\">" + key + "</span>"
+                word_color_span[key] = a.toString();
+            }
+        }
+
+        for (key in dict["middle"][0]) {
+            sentence = key.toString();
+            for (w_with_color in word_color_span) {
+
+                sentence.replace(new RegExp(w_with_color,'g'), word_color_span[w_with_color]);
+
+            }
+            outText.innerHTML += sentence;
+        }
+        
+
+        var bt_phrase = document.getElementById('divEnsuite');
+        bt_phrase.style.display="flex";
+
+        var bt_fini = document.getElementById('fini');
+        bt_fini.style.display="none";
+
+    }
+    p = "";
+    player++;
+    p = player;
+}
+var i = 1
+
+function next_sentence() {
+    console.log(dict["middle"].length);
+
+    if (i < dict["middle"].length) {
+        console.log(i);
+        for (key in dict["middle"][i]) {
+            sentence = key.toString();
+            for (w_with_color in word_color_span) {
+    
+                sentence.replace(new RegExp(w_with_color,'g'), word_color_span[w_with_color]);
+    
+            }
+            outText.innerHTML = sentence;
+        }
+    } else {
+        outText.innerHTML = "Le jeu est terminé ! Merci !";
+    }
+
+    p = "";
+    player++;
+    p = player;
+    i++;
+}
+
+
+
 /*
 $("#fini").on({
     "click": function () {
