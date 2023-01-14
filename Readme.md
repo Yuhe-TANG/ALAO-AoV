@@ -1,4 +1,6 @@
+## Jeu sur web "Action ou vérité" / "Truth or Dare"
 
+Le jeu est fait sur Django et dans un environnement virtuel. Pour le faire fonctionner, veuillez suivre les étapes suivantes :
 
 ### Les packages nécessaires:
 ```
@@ -47,7 +49,7 @@ wasabi==0.10.1
 
 ### L'éxécution:
 
-étape 1:
+#### étape 1:
 
 éxecuter les codes en bas:
 
@@ -55,10 +57,17 @@ wasabi==0.10.1
 python -m pipenv shell      # Pour venir dans un environnemen virtuel
 python manage.py runserver  # Pour faire tourner le serveur
 ```
-étape 2:
+#### étape 2:
 
 Ouvrez un navigateur, aller dans l'adresse [Localhost](http://localhost:8000/)
 
-### Changer de langues:
+#### Changer de langues:
 1. choisir votre langue désirée dans le dropbox du site.
-2. click le bouton "switch" pour réaliser le changement de langue.
+2. cliquer sur le bouton "switch" pour réaliser le changement de langue.
+
+#### Commençer le jeu :
+1. écrire dans le textarea le nombre de personnes, par exemple "2";
+2. cliquer sur le bouton "Commençer" (ou "Start" si en anglais) pour démarrer le jeu;
+3. Chacun va choisir les mots qu'ils connaissent dans la liste des mots affichée sur le site;
+4. Quand tout le monde a choisi les mots, les phrases vont s'afficher un par un.
+5. Les participants peuvent communiquer librement (qui est le but du jeu), mais il est meilleur de parler seulement en français ou en anglais (pour éviter la traduction des mots).
