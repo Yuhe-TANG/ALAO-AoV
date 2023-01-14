@@ -52,8 +52,10 @@ function choose_words(e) {
 }
 
 dict = {};
-word_color = []
-word_color_span = {}
+word_color = [];
+word_color_span = {};
+
+sentences = [];
 
 async function finir(e) {
     //console.log("finir")
@@ -110,6 +112,7 @@ async function finir(e) {
         const data = await response.json();
         phrases = data['phrase']
         dict = data['words']
+        console.log(data['words'])
         player = 0 ;
 
         
@@ -118,26 +121,23 @@ async function finir(e) {
         console.log(dict["middle"]);
         console.log(dict["easy"]);
 
-        dic = dict["middle"]
+        dic = dict["middle"];
         // "<span style = \"color: "+ color + ";\">" + key + "</span>"
-        for (i in dict["middle"]) {
-            for (key in dict["middle"][0][phrases[i]]) {
-                color = dict["middle"][0][phrases[i]][key]
-                // word_color += key
-                a = "<span style = \"color: "+ color + ";\">" + key + "</span>"
-                word_color_span[key] = a.toString();
+        for (i in dic) { // i est un dictionnaire de {"sentence": {word:color}}
+            for (key in dic[i]) {// key is the sentence
+                dic_words = dic[i][key];
+                sentence = key;
+                for (word in dic_words){
+                    // word_color += key
+                    color = dic_words[word];
+                    a = "<span style = \"color: "+ color + ";\">" + word + "</span>";
+                    sentence = sentence.replace(word, a.toString())
+                }
+                //outText.innerHTML += sentence;
+                sentences.push(sentence);
             }
         }
-
-        for (key in dict["middle"][0]) {
-            sentence = key.toString();
-            for (w_with_color in word_color_span) {
-
-                sentence.replace(new RegExp(w_with_color,'g'), word_color_span[w_with_color]);
-
-            }
-            outText.innerHTML += sentence;
-        }
+        outText.innerHTML = sentences[0];
         
 
         var bt_phrase = document.getElementById('divEnsuite');
@@ -151,14 +151,17 @@ async function finir(e) {
     player++;
     p = player;
 }
-var i = 1
+
+var sents_count = 1;
 
 function next_sentence() {
     console.log(dict["middle"].length);
-
-    if (i < dict["middle"].length) {
+    console.log(sents_count);
+    if (sents_count < dict["middle"].length) {
         console.log(i);
-        for (key in dict["middle"][i]) {
+        outText.innerHTML = sentences[sents_count];
+        sents_count ++;
+        /*for (key in dict["middle"][i]) {
             sentence = key.toString();
             for (w_with_color in word_color_span) {
     
@@ -166,7 +169,7 @@ function next_sentence() {
     
             }
             outText.innerHTML = sentence;
-        }
+        }*/
     } else {
         outText.innerHTML = "Le jeu est terminé ! Merci !";
     }
