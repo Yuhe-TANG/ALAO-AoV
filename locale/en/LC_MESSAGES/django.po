@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-01-10 14:32+0100\n"
+"POT-Creation-Date: 2023-01-14 17:12+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,23 +26,31 @@ msgstr "French"
 msgid "English"
 msgstr "English"
 
-#: .\templates\game.html:24
+#: .\templates\game.html:20
 msgid "Joueur"
 msgstr "Player"
 
-#: .\templates\game.html:27
+#: .\templates\game.html:22
+msgid "Cliquer une fois le mot : marquer le mot comme connu"
+msgstr "Click once on the word : mark the word as known"
+
+#: .\templates\game.html:23
+msgid "Cliquer deux fois le mot : visiter le dictionnaire en ligne sur le mot"
+msgstr "Double click the word : visit the online dictionary on the word"
+
+#: .\templates\game.html:25
 msgid "la prochaine phrase"
 msgstr "Next sentence"
 
-#: .\templates\game.html:32
+#: .\templates\game.html:30
 msgid "Mots choisis"
 msgstr "Words choisen"
 
-#: .\templates\game.html:41
+#: .\templates\game.html:35
 msgid "Fini"
 msgstr "Done"
 
-#: .\templates\home.html:6
+#: .\templates\home.html:5
 msgid "Action ou vérité"
 msgstr "Truth or Dare"
 
@@ -67,12 +75,12 @@ msgid ""
 "Quand vous avez des phrases affichées, vous pouvez commencer le jeu Action "
 "ou vérité comme vous voulez : un par un ou aléatoirement..."
 msgstr ""
-"When you have sentences displayed, you can start the truth or dare game "
-"as you like: one by one or randomly..."
+"When you have sentences displayed, you can start the truth or dare game as "
+"you like: one by one or randomly..."
 
 #: .\templates\home.html:24
 msgid "Essayez de parler seulement français !"
-msgstr "Try to speak only French ! "
+msgstr "Try to speak only English ! "
 
 #: .\templates\home.html:28
 msgid "Nombre de participants"
@@ -89,4 +97,3 @@ msgstr "Change"
 #: .\templates\home.html:58
 msgid "Commencer"
 msgstr "Start"
-
