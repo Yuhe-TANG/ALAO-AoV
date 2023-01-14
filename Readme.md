@@ -65,9 +65,9 @@ Ouvrez un navigateur, aller dans l'adresse [Localhost](http://localhost:8000/)
 1. choisir votre langue désirée dans le dropbox du site.
 2. cliquer sur le bouton "switch" pour réaliser le changement de langue.
 
-#### Commençer le jeu :
+#### Commencer le jeu :
 1. écrire dans le textarea le nombre de personnes, par exemple "2";
-2. cliquer sur le bouton "Commençer" (ou "Start" si en anglais) pour démarrer le jeu;
+2. cliquer sur le bouton "Commencer" (ou "Start" si en anglais) pour démarrer le jeu;
 3. Chacun va choisir les mots qu'ils connaissent dans la liste des mots affichée sur le site;
 4. Quand tout le monde a choisi les mots, les phrases vont s'afficher un par un.
 5. Les participants peuvent communiquer librement (qui est le but du jeu), mais il est meilleur de parler seulement en français ou en anglais (pour éviter la traduction des mots).

@@ -79,6 +79,7 @@ h1 {
 #gameContent button:hover {
     background-color:rgba(0,160,196,0.5);
     cursor: pointer;
+    
 }
 
 .choisi {

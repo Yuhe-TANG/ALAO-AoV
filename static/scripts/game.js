@@ -2,6 +2,12 @@ function strReplaceAll(search = ' ', replacement = '_', string){
     if(!string) return;
     return string.replace(new RegExp(search,'g'), replacement);
 }
+var lang = document.getElementById('playerX');
+if (lang.innerText == "Player 1") {
+    mode_lang = "en";
+} else {
+    mode_lang = "fr";
+}
 
 async function get_words() {
 
@@ -24,7 +30,12 @@ async function get_words() {
     for (i in List) {
         mot = List[i]
         if (mot != "-") {
-            mot = "<button onclick='choose_words(event)' value = '" + mot + "'>" + mot + "</button> ";
+            if (mode_lang == "fr") {
+                href = "https://www.larousse.fr/dictionnaires/francais/" + mot;
+            } else {
+                href = "https://dictionary.cambridge.org/dictionary/english/" + mot;
+            }
+            mot = "<button onclick='choose_words(event)' value = '" + mot + "' ondblclick = 'visite_dic_en_ligne(event)' href = '"+ href +"' >" + mot + "</button> ";
             word_list += mot
         }
     }
@@ -56,6 +67,10 @@ word_color = [];
 word_color_span = {};
 
 sentences = [];
+
+function visite_dic_en_ligne(e) {
+    window.open(e.target.getAttribute("href"));
+}
 
 async function finir(e) {
     //console.log("finir")
