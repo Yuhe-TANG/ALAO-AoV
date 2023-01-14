@@ -136,22 +136,26 @@ async function finir(e) {
         console.log(dict["middle"]);
         console.log(dict["easy"]);
 
-        dic = dict["middle"];
+        dic = dict["easy"];
         // "<span style = \"color: "+ color + ";\">" + key + "</span>"
-        for (i in dic) { // i est un dictionnaire de {"sentence": {word:color}}
-            for (key in dic[i]) {// key is the sentence
-                dic_words = dic[i][key];
-                sentence = key;
-                for (word in dic_words){
-                    // word_color += key
-                    color = dic_words[word];
-                    a = "<span style = \"color: "+ color + ";\">" + word + "</span>";
-                    sentence = sentence.replace(word, a.toString())
+        for (dic in dict){
+            dic = dict[dic]
+            for (i in dic) { // i est un dictionnaire de {"sentence": {word:color}}
+                for (key in dic[i]) {// key is the sentence
+                    dic_words = dic[i][key];
+                    sentence = key;
+                    for (word in dic_words){
+                        // word_color += key
+                        color = dic_words[word];
+                        a = "<span style = \"color: "+ color + ";\">" + word + "</span>";
+                        sentence = sentence.replace(word, a.toString())
+                    }
+                    //outText.innerHTML += sentence;
+                    sentences.push(sentence);
                 }
-                //outText.innerHTML += sentence;
-                sentences.push(sentence);
             }
         }
+        
         outText.innerHTML = sentences[0];
         
 
@@ -172,7 +176,7 @@ var sents_count = 1;
 function next_sentence() {
     console.log(dict["middle"].length);
     console.log(sents_count);
-    if (sents_count < dict["middle"].length) {
+    if (sents_count <= dict["middle"].length) {
         console.log(i);
         outText.innerHTML = sentences[sents_count];
         sents_count ++;

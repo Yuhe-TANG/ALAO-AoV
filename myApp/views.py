@@ -80,6 +80,7 @@ def send_phrases(request) :
     data = json.loads(request.body)
     global vocab_list
     vocab_list = data
+    print(vocab_list)
     
     size = 10
     if (mode_lang == "en"):
@@ -215,7 +216,9 @@ def vocab_list_to_front_end(key_words):
 
 def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
     known_words = {}
+    nb_players = 0
     for v in vocab_list:
+        nb_players += 1
         for word in vocab_list[v]:
             if word in known_words:
                 known_words[word] += 1
@@ -233,9 +236,9 @@ def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
         for words in key_words[id_phrase].split(" ") :
             word_list = words.split("/")
             for word in word_list : 
-                print(word)
+                
                 if word in known_words: # If the user know the word,=
-                    if (known_words[word] == players_num):
+                    if (known_words[word] == nb_players):
                         category = "green"
                         level -= 1
                     else:
@@ -251,12 +254,12 @@ def make_final_result_to_front_end(vocab_list, key_words, selected_sentences):
             else:
                 final_result_to_front["easy"].append({selected_sentences[id_phrase]: word_category_dict})
 
-    for key in final_result_to_front:
+
+    return final_result_to_front
+"""    for key in final_result_to_front:
         #print("\nNiveau de difficulté: ", key)
         for question in final_result_to_front[key]:
-            print(question)
-    return final_result_to_front
-
+            print(question)"""
 def main(mode_lang, question_size):
     size = question_size
     if (mode_lang == "en"):
